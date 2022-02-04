@@ -52,6 +52,6 @@ jobs:
       - name: Build and Test
         uses: ros-tooling/action-ros-ci@v0.2
         with:
-          package-name: hls_lfcd_lds_driver
+          package-name: ld08_driver
           target-ros2-distro: ${{ matrix.ros_distribution }}
           vcs-repo-file-url: ""
