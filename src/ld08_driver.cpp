@@ -12,39 +12,8 @@
 int main(int argc , char **argv)
 {
 	LiPkg * pkg;
-
-	// if(argc!=1)
-	// {
-	// 	std::cout << "USAGE: roslaunch ld08_driver ld08_driver.launch"<<std::endl;
-	// 	return -1;
-	// }
-	
-	int32_t ver=8;
 	pkg = new LD08_LiPkg; 
-
-	// if(strcmp(argv[1],"LD00")==0)
-	// {
-	// 	ver = 0;
-	// 	pkg = new LD00_LiPkg; 
-	// }else if(strcmp(argv[1],"LD03")==0)
-	// {
-	//     ver = 3;
-	// 	pkg = new LD03_LiPkg;
-	// }
-	// else if(strcmp(argv[1],"LD08")==0)
-	// {
-	// 	ver = 8;
-	// 	pkg = new LD08_LiPkg;
-	// }else if(strcmp(argv[1],"LD09")==0)
-	// {
-	// 	ver = 9;
-	// 	pkg = new LD09_LiPkg; 
-	// }
-	// else
-	// {
-	// 	std::cout << "Usage : LD0* ->  LD00 LD03 LD08 LD09  "<<std::endl; /* print Usage */
-	// 	return -1;
-	// }
+	int32_t ver=8;
 
 #if 0	 
     /* test code */
@@ -64,7 +33,6 @@ int main(int argc , char **argv)
 	strcat(topic_name,product_ver);
 	strcat(topic_name,"/scan");
 	ros::Publisher lidar_pub = nh.advertise<sensor_msgs::LaserScan>("scan", 1); /*create a ROS topic */
-
 
     CmdInterfaceLinux cmd_port(ver);
     std::vector<std::pair<std::string, std::string> > device_list;
@@ -91,7 +59,7 @@ int main(int argc , char **argv)
 		cmd_port.Open(port_name);
 		sensor_msgs::LaserScan scan;
 		scan.header.stamp = ros::Time::now();
-		scan.header.frame_id = "laser";
+		scan.header.frame_id = "base_scan";
 		scan.range_min = 0.0;
 		scan.range_max = 100.0;
 
