@@ -1,19 +1,3 @@
-// Copyright 2021 ROBOTIS CO., LTD.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: LD Robot, Will Son
-
 #ifndef _POINT_DATA_H_
 #define _POINT_DATA_H_
 
@@ -23,12 +7,11 @@
 
 struct PointData
 {
-    // Polar coordinate representation
+    //极坐标表示方式
     float angle;
     uint16_t distance;
     uint8_t confidence;
-    
-    // Rectangular coordinate representation
+    //直角坐标表示方式
     double x;
     double y;
     PointData(float angle, uint16_t distance, uint8_t confidence , double x = 0, double y = 0)

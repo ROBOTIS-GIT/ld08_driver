@@ -1,18 +1,11 @@
-// Copyright 2021 ROBOTIS CO., LTD.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: LD Robot, Will Son
+/**
+* @file         lipkg.cpp
+* @author       LD Robot
+* @version      V01
+* @brief         
+* @note          
+* @attention    COPYRIGHT LDROBOT
+**/
 
 #include "lipkg.h"
 #include <math.h>
@@ -27,6 +20,7 @@
 #ifdef USE_SLBF
 	#include "slbf.h"
 #endif
+//#define ANGLE_TO_RADIAN(angle) ((angle)*3141.59/180000)
 
  
 static const uint8_t CrcTable[256] =
@@ -56,8 +50,12 @@ static const uint8_t CrcTable[256] =
 };
 
 
-LiPkg::LiPkg()
-  : mTimestamp(0), mSpeed(0), mErrorTimes(0), mIsFrameReady(false), mIsPkgReady(false)
+LiPkg::LiPkg():
+	mTimestamp(0),
+	mSpeed(0),
+	mErrorTimes(0),
+	mIsFrameReady(false),
+	mIsPkgReady(false)
 {
 }
 
@@ -194,6 +192,14 @@ bool LiPkg::AssemblePacket()
 			mFrameData.len = tmp.size();
 			Transform(tmp);                  /*transform raw data to stantard data */
 
+			if (tmp.size() == 0)
+			{
+				mFrameTemp.clear();
+				mIsFrameReady = false;
+				return false;
+			}
+			
+
 			#ifdef USE_SLBI
 				Slbi sb(2300);
 				sb.FindBarcode(tmp);
@@ -205,16 +211,44 @@ bool LiPkg::AssemblePacket()
 			#endif
 
 			std::sort(tmp.begin(), tmp.end(), [](PointData a, PointData b) {return a.angle < b.angle; });
-			if(tmp.size()>0)
+			mFrameData.angle_min = tmp[0].angle;
+			mFrameData.angle_max = tmp.back().angle;
+			mFrameData.distance.clear();
+			mFrameData.intensities.clear();
+			mFrameData.distance.resize(mFrameData.len);
+			mFrameData.intensities.resize(mFrameData.len);
+			float step = (mFrameData.angle_max - mFrameData.angle_min)/mFrameData.len;
+			float angle_acc = mFrameData.angle_min;
+			int tmp_count = 0;
+			/* interpolation method */
+			for (uint32_t i=0;i< mFrameData.len;i++)
 			{
-				ToLaserscan(tmp);
-				mIsFrameReady = true;
-				for(auto i=0;i<count;i++)
+				if(angle_acc >= tmp[tmp_count].angle)
 				{
-					mFrameTemp.erase(mFrameTemp.begin());
+					mFrameData.distance[i] = tmp[tmp_count].distance;
+					mFrameData.intensities[i] = tmp[tmp_count].confidence;
+					tmp_count ++;
+					if(tmp_count == tmp.size())
+					{
+						break;
+					}
 				}
-				return true;
+				else
+				{
+					mFrameData.distance[i] = 0;
+					mFrameData.intensities[i] = 0;
+				}
+				angle_acc += step;
 			}
+			std::vector<PointData>tmp2;
+			for (uint32_t i = count; i < mFrameTemp.size(); i++)
+			{
+				tmp2.push_back(mFrameTemp[i]);
+			}
+			mFrameTemp.clear();
+			mFrameTemp = tmp2;
+			mIsFrameReady = true;
+			return true;
 		}
 		else
 		{
@@ -223,6 +257,7 @@ bool LiPkg::AssemblePacket()
 
 		count++;
 		last_angle = n.angle;
+		
 	}
 
 	return false;
@@ -234,57 +269,4 @@ const std::array<PointData, POINT_PER_PACK>& LiPkg::GetPkgData(void)
 	return mOnePkg;
 }
 
-void LiPkg::ToLaserscan(std::vector<PointData> src)
-{
-  float angle_min, angle_max, range_min, range_max, angle_increment;
-  
-  /*Adjust the parameters according to the demand*/
-  angle_min = ANGLE_TO_RADIAN(src.front().angle);
-  angle_max = ANGLE_TO_RADIAN(src.back().angle);
-  range_min = 0.0;
-  range_max = 100.0;
-  
-  angle_increment = ANGLE_TO_RADIAN(mSpeed/2300);
-
-  /*Calculate the number of scanning points*/
-  unsigned int beam_size = ceil((angle_max - angle_min) / angle_increment);
-//   output.header.stamp = rclcpp::Time::now();
-  output.header.frame_id = "base_scan";
-  output.angle_min = angle_min;
-  output.angle_max = angle_max;
-  output.range_min = range_min;
-  output.range_max = range_max;
-  output.angle_increment = angle_increment;
-//   mSpeed = rotation_degree / sec
-// 
-  output.time_increment = (360 / mSpeed) / ((angle_max - angle_min) / angle_increment);
-  output.scan_time = 360 / mSpeed;
-  
-  /*First fill all the data with Nan*/
-  output.ranges.assign(beam_size, std::numeric_limits<float>::quiet_NaN());
-  output.intensities.assign(beam_size, std::numeric_limits<float>::quiet_NaN());
-
-  for (auto point : src)
-  {
-	float range = point.distance/1000.f;
-    float angle = ANGLE_TO_RADIAN(point.angle);
-	
-    float index = (angle - output.angle_min) / output.angle_increment;
-    if (index >= 0.0 && index < beam_size)
-    {
-      /*If the current content is Nan, it is assigned directly*/
-      if (std::isnan(output.ranges[index]))
-      {
-        output.ranges[index] = range;
-      }   
-      else
-      {/*Otherwise, only when the distance is less than the current value, it can be re assigned*/
-        if (range < output.ranges[index])
-        {
-          output.ranges[index] = range;
-        }
-      }
-      output.intensities[index] = point.confidence;
-    }
-  }
-}
+/********************* (C) COPYRIGHT LD Robot *******END OF FILE ********/
