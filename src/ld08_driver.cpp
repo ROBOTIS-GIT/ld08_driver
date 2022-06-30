@@ -29,6 +29,9 @@ int main(int argc , char **argv)
 	strcpy(product_ver,"LD08");
 	ros::init(argc, argv, product_ver);
 	ros::NodeHandle nh;                    /* create a ROS Node */
+	ros::NodeHandle priv_nh("~");
+	std::string frame_id;
+	priv_nh.param("frame_id", frame_id, std::string("base_scan"));
 	char topic_name[20]={0};
 	strcat(topic_name,product_ver);
 	strcat(topic_name,"/scan");
@@ -59,7 +62,7 @@ int main(int argc , char **argv)
 		cmd_port.Open(port_name);
 		sensor_msgs::LaserScan scan;
 		scan.header.stamp = ros::Time::now();
-		scan.header.frame_id = "base_scan";
+		scan.header.frame_id =  frame_id;
 		scan.range_min = 0.0;
 		scan.range_max = 100.0;
 
