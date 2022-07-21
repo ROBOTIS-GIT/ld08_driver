@@ -38,7 +38,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-SET(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 file(GLOB  MAIN_SRC src/*.cpp)
 
