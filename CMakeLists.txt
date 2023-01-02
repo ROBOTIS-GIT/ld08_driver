@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.5)
 project(ld08_driver)
 
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -38,7 +38,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-SET(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+SET(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
 
 file(GLOB  MAIN_SRC src/*.cpp)
 
