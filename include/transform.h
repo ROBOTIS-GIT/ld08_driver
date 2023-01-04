@@ -14,34 +14,34 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef __TRANSFORM_H
-#define __TRANSFORM_H
+#ifndef TRANSFORM_H_
+#define TRANSFORM_H_
 
-#include "lipkg.h"
-#include <vector>
 #include <math.h>
+#include <vector>
 #include <algorithm>
+#include "../include/lipkg.h"
 
 enum class LDVersion
 {
-    LD_ZERO,  /*Zero  generation lidar*/
-    LD_THREE, /*Third generation lidar*/
-    LD_EIGHT, /*Eight generation radar*/
-    LD_NINE,  /*Nine  generation radar*/
+  LD_ZERO,  /*Zero  generation lidar*/
+  LD_THREE, /*Third generation lidar*/
+  LD_EIGHT, /*Eight generation radar*/
+  LD_NINE,  /*Nine  generation radar*/
 };
 
 class SlTransform
 {
 private:
-    bool to_right_hand = true;
-    double offset_x;
-    double offset_y;
+  bool to_right_hand = true;
+  double offset_x;
+  double offset_y;
 
 public:
-    SlTransform(LDVersion version, bool to_right_hand = false);
-    Points2D Transform(const Points2D &data);
-    ~SlTransform();
+  explicit SlTransform(LDVersion version, bool to_right_hand = false);
+  Points2D Transform(const Points2D & data);
+  ~SlTransform();
 };
 
 
-#endif
+#endif  // TRANSFORM_H_
