@@ -93,6 +93,8 @@ public:
   sensor_msgs::msg::LaserScan GetLaserScan() {return output;}
   void setStamp(rclcpp::Time timeStamp) {output.header.stamp = timeStamp;}
 
+  void setFrameId(std::string frameId) {frame_id = frameId;}
+
 private:
   uint16_t mTimestamp;
   double mSpeed;
@@ -105,6 +107,7 @@ private:
   FrameData mFrameData;
   sensor_msgs::msg::LaserScan output;
   void ToLaserscan(std::vector < PointData > src);
+  std::string frame_id;
 };
 
 class LD00_LiPkg: public LiPkg
