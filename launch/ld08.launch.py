@@ -18,15 +18,21 @@
 
 
 from launch import LaunchDescription
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    frame_id = LaunchConfiguration("frame_id", default="base_scan")
 
-    return LaunchDescription([
-        Node(
-            package='ld08_driver',
-            executable='ld08_driver',
-            name='ld08_driver',
-            output='screen'),
-    ])
+    return LaunchDescription(
+        [
+            Node(
+                package="ld08_driver",
+                executable="ld08_driver",
+                name="ld08_driver",
+                parameters=[{"frame_id": frame_id}],
+                output="screen",
+            ),
+        ]
+    )
