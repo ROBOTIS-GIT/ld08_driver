@@ -24,10 +24,12 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     frame_id = LaunchConfiguration("frame_id", default="base_scan")
+    namespace = LaunchConfiguration('namespace')
 
     return LaunchDescription(
         [
             Node(
+                namespace=namespace,
                 package="ld08_driver",
                 executable="ld08_driver",
                 name="ld08_driver",
