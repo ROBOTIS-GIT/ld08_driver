@@ -30,9 +30,14 @@ int main(int argc, char ** argv)
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
 
   LiPkg * pkg;
-  std::string product;
+  std::string product, frame_id;
   int32_t ver = 8;
   pkg = new LD08_LiPkg;
+
+  node->declare_parameter<std::string>("frame_id");
+  node->get_parameter_or<std::string>("frame_id", frame_id, "base_scan");
+
+  pkg->setFrameId(frame_id);
 
   CmdInterfaceLinux cmd_port(ver);
   std::vector<std::pair<std::string, std::string>> device_list;
