@@ -1,47 +1,42 @@
-// Copyright 2021 ROBOTIS CO., LTD.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// Author: LD Robot, Will Son
+/**
+* @file         transform.h
+* @author       Weyne Chen
+* @version      V01
+* @date         2020.04.26
+* @brief         
+* @note          
+* @attention    COPYRIGHT WEYNE
+**/
 
-#ifndef TRANSFORM_H_
-#define TRANSFORM_H_
+#ifndef __TRANSFORM_H
+#define __TRANSFORM_H
 
-#include <math.h>
+#include "lipkg.h"
 #include <vector>
+#include <math.h>
 #include <algorithm>
-#include "../include/lipkg.h"
 
 enum class LDVersion
 {
-  LD_ZERO,  /*Zero  generation lidar*/
-  LD_THREE, /*Third generation lidar*/
-  LD_EIGHT, /*Eight generation radar*/
-  LD_NINE,  /*Nine  generation radar*/
+    LD_ZERO,  /*Zero  generation lidar*/
+    LD_THREE, /*Third generation lidar*/
+    LD_EIGHT, /*Eight generation radar*/
+    LD_NINE,  /*Nine  generation radar*/
 };
 
 class SlTransform
 {
 private:
-  bool to_right_hand = true;
-  double offset_x;
-  double offset_y;
+    bool to_right_hand = true;
+    double offset_x;
+    double offset_y;
 
 public:
-  explicit SlTransform(LDVersion version, bool to_right_hand = false);
-  Points2D Transform(const Points2D & data);
-  ~SlTransform();
+    SlTransform(LDVersion version,  bool to_right_hand = false);
+    Points2D Transform(const Points2D &data);
+    ~SlTransform();
 };
 
 
-#endif  // TRANSFORM_H_
+#endif
+/********************* (C) COPYRIGHT WEYNE CHEN *******END OF FILE ********/
