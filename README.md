@@ -3,15 +3,8 @@
 
 Since 2022, the LD08 replaces the previous LDS-01 sensor.
 
-[![kinetic-devel Status](https://github.com/ROBOTIS-GIT/ld08_driver/workflows/kinetic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/ld08_driver/tree/kinetic-devel)
-
-[![melodic-devel Status](https://github.com/ROBOTIS-GIT/ld08_driver/workflows/melodic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/ld08_driver/tree/melodic-devel)
-
-[![noetic-devel Status](https://github.com/ROBOTIS-GIT/ld08_driver/workflows/noetic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/ld08_driver/tree/noetic-devel)
-
-[![foxy-devel Status](https://github.com/ROBOTIS-GIT/ld08_driver/workflows/foxy-devel/badge.svg)](https://github.com/ROBOTIS-GIT/ld08_driver/tree/foxy-devel)
-
-[![galactic-devel Status](https://github.com/ROBOTIS-GIT/ld08_driver/workflows/galactic-devel/badge.svg)](https://github.com/ROBOTIS-GIT/ld08_driver/tree/galactic-devel)
+- Active Branches: noetic, humble, main
+- Legacy Branches: *-devel
 
 ## ROS Wiki for ld08_driver Packages
 - http://wiki.ros.org/ld08_driver
