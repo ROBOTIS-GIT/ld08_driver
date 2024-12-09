@@ -3,7 +3,7 @@
 
 Since 2022, the LD08 replaces the previous LDS-01 sensor.
 
-- Active Branches: humble, main
+- Active Branches: noetic, humble, main
 - Legacy Branches: *-devel
 
 ## ROS Wiki for ld08_driver Packages
