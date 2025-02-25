@@ -19,7 +19,7 @@
 
 #include <stdint.h>
 #include <vector>
-#include "../include/pointdata.h"
+#include "../include/pointdata.hpp"
 
 class Slbf
 {

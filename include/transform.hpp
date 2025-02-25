@@ -20,7 +20,7 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
-#include "../include/lipkg.h"
+#include "../include/lipkg.hpp"
 
 enum class LDVersion
 {

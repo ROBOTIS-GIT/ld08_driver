@@ -22,7 +22,7 @@
 #include <iostream>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include "../include/pointdata.h"
+#include "../include/pointdata.hpp"
 
 #define ANGLE_TO_RADIAN(angle) ((angle) * 3141.59 / 180000)
 #define RADIAN_TO_ANGLE(angle) ((angle) * 180000 / 3141.59)

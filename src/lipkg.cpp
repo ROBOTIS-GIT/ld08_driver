@@ -21,11 +21,11 @@
 #define USE_SLBF
 
 #ifdef USE_SLBI
-  #include "slbi.h"
+  #include "slbi.hpp"
 #endif
 
 #ifdef USE_SLBF
-  #include "slbf.h"
+  #include "slbf.hpp"
 #endif
 
 
