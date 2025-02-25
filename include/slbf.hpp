@@ -36,7 +36,7 @@ private:
   bool enable_strict_policy;
   Slbf() = delete;
   Slbf(const Slbf &) = delete;
-  Slbf & operator = (const Slbf &) = delete;
+  Slbf & operator=(const Slbf &) = delete;
 
 public:
   explicit Slbf(int speed, bool strict_policy = true);

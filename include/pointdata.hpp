@@ -41,21 +41,22 @@ struct PointData
     this->y = y;
   }
 
-  PointData() {
+  PointData()
+  {
   }
 
-  friend std::ostream & operator << (std::ostream & os, const PointData & data)
-      {
-      os << data.angle << " " \
-      << data.distance << " " \
-      << static_cast<int>(data.confidence) << " " \
-      << data.x << " " \
-      << data.y;
-      return os;
-    }
+  friend std::ostream & operator<<(std::ostream & os, const PointData & data)
+  {
+    os << data.angle << " " \
+       << data.distance << " " \
+       << static_cast<int>(data.confidence) << " " \
+       << data.x << " " \
+       << data.y;
+    return os;
+  }
 };
 
 
-typedef std::vector < PointData > Points2D;
+typedef std::vector<PointData> Points2D;
 
 #endif  // POINTDATA_HPP_
