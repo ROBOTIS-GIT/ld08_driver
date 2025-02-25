@@ -17,8 +17,8 @@
 #include <math.h>
 #include <iostream>
 #include <algorithm>
-#include "../include/lipkg.h"
-#include "../include/slbf.h"
+#include "../include/lipkg.hpp"
+#include "../include/slbf.hpp"
 
 /*
   \brief      Set current speed

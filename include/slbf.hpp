@@ -14,12 +14,12 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef SLBF_H_
-#define SLBF_H_
+#ifndef SLBF_HPP_
+#define SLBF_HPP_
 
 #include <stdint.h>
 #include <vector>
-#include "../include/pointdata.h"
+#include "../include/pointdata.hpp"
 
 class Slbf
 {
@@ -36,7 +36,7 @@ private:
   bool enable_strict_policy;
   Slbf() = delete;
   Slbf(const Slbf &) = delete;
-  Slbf & operator = (const Slbf &) = delete;
+  Slbf & operator=(const Slbf &) = delete;
 
 public:
   explicit Slbf(int speed, bool strict_policy = true);
@@ -45,4 +45,4 @@ public:
   ~Slbf();
 };
 
-#endif  // SLBF_H_
+#endif  // SLBF_HPP_

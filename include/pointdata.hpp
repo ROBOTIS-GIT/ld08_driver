@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef POINTDATA_H_
-#define POINTDATA_H_
+#ifndef POINTDATA_HPP_
+#define POINTDATA_HPP_
 
 #include <stdint.h>
 #include <vector>
@@ -41,21 +41,22 @@ struct PointData
     this->y = y;
   }
 
-  PointData() {
+  PointData()
+  {
   }
 
-  friend std::ostream & operator << (std::ostream & os, const PointData & data)
-      {
-      os << data.angle << " " \
-      << data.distance << " " \
-      << (int)data.confidence << " " \
-      << data.x << " " \
-      << data.y;
-      return os;
-    }
+  friend std::ostream & operator<<(std::ostream & os, const PointData & data)
+  {
+    os << data.angle << " " \
+       << data.distance << " " \
+       << static_cast<int>(data.confidence) << " " \
+       << data.x << " " \
+       << data.y;
+    return os;
+  }
 };
 
 
-typedef std::vector < PointData > Points2D;
+typedef std::vector<PointData> Points2D;
 
-#endif  // POINTDATA_H_
+#endif  // POINTDATA_HPP_
