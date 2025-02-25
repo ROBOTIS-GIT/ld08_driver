@@ -16,9 +16,9 @@
 
 #include <stdio.h>
 #include <iostream>
-#include "../include/cmd_interface_linux.h"
-#include "../include/lipkg.h"
-#include "../include/transform.h"
+#include "../include/cmd_interface_linux.hpp"
+#include "../include/lipkg.hpp"
+#include "../include/transform.hpp"
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 

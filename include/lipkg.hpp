@@ -14,15 +14,15 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef LIPKG_H_
-#define LIPKG_H_
+#ifndef LIPKG_HPP_
+#define LIPKG_HPP_
 #include <stdint.h>
 #include <vector>
 #include <array>
 #include <iostream>
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include "../include/pointdata.h"
+#include "../include/pointdata.hpp"
 
 #define ANGLE_TO_RADIAN(angle) ((angle) * 3141.59 / 180000)
 #define RADIAN_TO_ANGLE(angle) ((angle) * 180000 / 3141.59)
@@ -54,15 +54,15 @@ typedef struct  __attribute__((packed))
 } LiDARFrameTypeDef;
 
 
-typedef std::vector < PointData > Points2D;
+typedef std::vector<PointData> Points2D;
 
 struct FrameData
 {
   float angle_min;
   float angle_max;
   uint32_t len;
-  std::vector < uint16_t > distance;
-  std::vector < uint8_t > intensities;
+  std::vector<uint16_t> distance;
+  std::vector<uint8_t> intensities;
 };
 
 
@@ -82,11 +82,11 @@ public:
   // the number of errors in parser process of lidar data frame
   int32_t GetErrorTimes(void) {return mErrorTimes;}
   // original data package
-  const std::array < PointData, POINT_PER_PACK > & GetPkgData(void);
+  const std::array<PointData, POINT_PER_PACK> & GetPkgData(void);
   // parse single packet
   bool Parse(const uint8_t * data, int32_t len);
   // transform raw data to stantard data
-  virtual void Transform(std::vector < PointData > & tmp) = 0;
+  virtual void Transform(std::vector<PointData> & tmp) = 0;
   // combine stantard data into data frames and calibrate
   bool AssemblePacket();
   const FrameData & GetFrameData(void) {mIsFrameReady = false; return mFrameData;}
@@ -99,36 +99,36 @@ private:
   int32_t mErrorTimes;
   bool mIsFrameReady;
   bool mIsPkgReady;
-  std::vector < uint8_t > mDataTmp;
-  std::array < PointData, POINT_PER_PACK > mOnePkg;
-  std::vector < PointData > mFrameTemp;
+  std::vector<uint8_t> mDataTmp;
+  std::array<PointData, POINT_PER_PACK> mOnePkg;
+  std::vector<PointData> mFrameTemp;
   FrameData mFrameData;
   sensor_msgs::msg::LaserScan output;
-  void ToLaserscan(std::vector < PointData > src);
+  void ToLaserscan(std::vector<PointData> src);
 };
 
-class LD00_LiPkg: public LiPkg
+class LD00_LiPkg : public LiPkg
 {
 public:
-  virtual void Transform(std::vector < PointData > & tmp);
+  virtual void Transform(std::vector<PointData> & tmp);
 };
 
-class LD03_LiPkg: public LiPkg
+class LD03_LiPkg : public LiPkg
 {
 public:
-  virtual void Transform(std::vector < PointData > & tmp);
+  virtual void Transform(std::vector<PointData> & tmp);
 };
 
-class LD08_LiPkg: public LiPkg
+class LD08_LiPkg : public LiPkg
 {
 public:
-  virtual void Transform(std::vector < PointData > & tmp);
+  virtual void Transform(std::vector<PointData> & tmp);
 };
 
-class LD09_LiPkg: public LiPkg
+class LD09_LiPkg : public LiPkg
 {
 public:
-  virtual void Transform(std::vector < PointData > & tmp);
+  virtual void Transform(std::vector<PointData> & tmp);
 };
 
-#endif  // LIPKG_H_
+#endif  // LIPKG_HPP_
