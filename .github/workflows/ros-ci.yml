@@ -42,12 +42,12 @@ jobs:
         with:
           path: ros_ws/src
       - name: Setup ROS environment
-        uses: ros-tooling/setup-ros@0.7
+        uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: ${{ matrix.ros_distribution }}
 
       - name: Build and Test
-        uses: ros-tooling/action-ros-ci@0.3
+        uses: ros-tooling/action-ros-ci@v0.3
         with:
           package-name: ld08_driver
           target-ros2-distro: ${{ matrix.ros_distribution }}
