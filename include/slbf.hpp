@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef SLBF_H_
-#define SLBF_H_
+#ifndef SLBF_HPP_
+#define SLBF_HPP_
 
 #include <stdint.h>
 #include <vector>
@@ -45,4 +45,4 @@ public:
   ~Slbf();
 };
 
-#endif  // SLBF_H_
+#endif  // SLBF_HPP_

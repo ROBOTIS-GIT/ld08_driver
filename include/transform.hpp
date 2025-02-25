@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef TRANSFORM_H_
-#define TRANSFORM_H_
+#ifndef TRANSFORM_HPP_
+#define TRANSFORM_HPP_
 
 #include <math.h>
 #include <vector>
@@ -44,4 +44,4 @@ public:
 };
 
 
-#endif  // TRANSFORM_H_
+#endif  // TRANSFORM_HPP_

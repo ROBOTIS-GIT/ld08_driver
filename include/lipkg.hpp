@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef LIPKG_H_
-#define LIPKG_H_
+#ifndef LIPKG_HPP_
+#define LIPKG_HPP_
 #include <stdint.h>
 #include <vector>
 #include <array>
@@ -131,4 +131,4 @@ public:
   virtual void Transform(std::vector < PointData > & tmp);
 };
 
-#endif  // LIPKG_H_
+#endif  // LIPKG_HPP_

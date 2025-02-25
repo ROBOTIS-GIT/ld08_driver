@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef CMD_INTERFACE_LINUX_H_
-#define CMD_INTERFACE_LINUX_H_
+#ifndef CMD_INTERFACE_LINUX_HPP_
+#define CMD_INTERFACE_LINUX_HPP_
 
 #include <inttypes.h>
 #include <atomic>
@@ -57,4 +57,4 @@ private:
   std::atomic < bool > mIsCmdOpened, mRxThreadExitFlag;
 };
 
-#endif  // CMD_INTERFACE_LINUX_H_
+#endif  // CMD_INTERFACE_LINUX_HPP_

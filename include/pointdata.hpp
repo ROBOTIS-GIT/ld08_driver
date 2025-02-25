@@ -14,8 +14,8 @@
 //
 // Author: LD Robot, Will Son
 
-#ifndef POINTDATA_H_
-#define POINTDATA_H_
+#ifndef POINTDATA_HPP_
+#define POINTDATA_HPP_
 
 #include <stdint.h>
 #include <vector>
@@ -48,7 +48,7 @@ struct PointData
       {
       os << data.angle << " " \
       << data.distance << " " \
-      << (int)data.confidence << " " \
+      << static_cast<int>(data.confidence) << " " \
       << data.x << " " \
       << data.y;
       return os;
@@ -58,4 +58,4 @@ struct PointData
 
 typedef std::vector < PointData > Points2D;
 
-#endif  // POINTDATA_H_
+#endif  // POINTDATA_HPP_
