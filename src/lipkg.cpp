@@ -171,9 +171,9 @@ bool LiPkg::AssemblePacket()
   float last_angle = 0;
   std::vector<PointData> tmp;
   int count = 0;
-  for (auto n : mFrameTemp) {
+  for (auto n = mFrameTemp.begin(); n != mFrameTemp.end(); n++) {
     // wait for enough data, need enough data to show a circle*/
-    if (n.angle - last_angle < (-350.f)) {  // enough data has been obtained
+    if ((*n).angle - last_angle < (-350.f)) {  // enough data has been obtained
       mFrameData.len = tmp.size();
       Transform(tmp);  // transform raw data to stantard data
 
@@ -199,11 +199,11 @@ bool LiPkg::AssemblePacket()
         return true;
       }
     } else {
-      tmp.push_back(n);  //  getting data */
+      tmp.push_back(*n);  //  getting data */
     }
 
     count++;
-    last_angle = n.angle;
+    last_angle = (*n).angle;
   }
 
   return false;
