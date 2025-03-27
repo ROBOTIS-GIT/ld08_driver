@@ -17,8 +17,10 @@
   <author email="willson@robotis.com">Will Son</author>
   <author email="hjkim@robotis.com">Hye-Jong KIM</author>
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <depend>rclcpp</depend>
+  <depend>boost</depend>
   <depend>sensor_msgs</depend>
+  <depend>libudev-dev</depend>
+  <depend>rclcpp</depend>
   <export>
     <build_type>ament_cmake</build_type>
   </export>
