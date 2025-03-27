@@ -1,5 +1,5 @@
 # LDS-02 (LD08)
-<img src="http://emanual.robotis.com/assets/images/platform/turtlebot3/appendix_lds/lds_ld08_small.png">
+<img src="https://raw.githubusercontent.com/ROBOTIS-GIT/emanual/master/assets/images/platform/turtlebot3/appendix_lds/lds_ld08_small.png" width="300">
 
 Since 2022, the LDS-02 (LD08) replaces the previous LDS-01 sensor.
 
@@ -11,11 +11,10 @@ Since 2022, the LDS-02 (LD08) replaces the previous LDS-01 sensor.
 - [turtlebot3_msgs](https://github.com/ROBOTIS-GIT/turtlebot3_msgs)
 - [turtlebot3_simulations](https://github.com/ROBOTIS-GIT/turtlebot3_simulations)
 - [turtlebot3_manipulation](https://github.com/ROBOTIS-GIT/turtlebot3_manipulation)
-- [turtlebot3_manipulation_simulations](https://github.com/ROBOTIS-GIT/turtlebot3_manipulation_simulations)
+- [turtlebot3_autorace](https://github.com/ROBOTIS-GIT/turtlebot3_autorace)
 - [turtlebot3_applications](https://github.com/ROBOTIS-GIT/turtlebot3_applications)
 - [turtlebot3_applications_msgs](https://github.com/ROBOTIS-GIT/turtlebot3_applications_msgs)
 - [turtlebot3_machine_learning](https://github.com/ROBOTIS-GIT/turtlebot3_machine_learning)
-- [turtlebot3_autorace](https://github.com/ROBOTIS-GIT/turtlebot3_autorace)
 - [turtlebot3_home_service_challenge](https://github.com/ROBOTIS-GIT/turtlebot3_home_service_challenge)
 - [hls_lfcd_lds_driver](https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver)
 - [ld08_driver](https://github.com/ROBOTIS-GIT/ld08_driver)
