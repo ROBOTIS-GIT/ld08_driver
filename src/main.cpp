@@ -22,10 +22,18 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 
+bool continueLoop = true;
+
+void node_cleanup()
+{
+  RCLCPP_INFO(rclcpp::get_logger("shutdown"), "Shutting down gracefully...");
+  continueLoop = false;
+}
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
+  rclcpp::on_shutdown(node_cleanup);
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
 
@@ -65,13 +73,19 @@ int main(int argc, char ** argv)
       "scan", rclcpp::QoS(rclcpp::SensorDataQoS())
     );
 
-    while (rclcpp::ok()) {
+    // Set polling rate to 40Hz, this should be enough for most cases
+    rclcpp::Rate loop_rate(40);
+    
+    while (rclcpp::ok() && continueLoop) {
       if (pkg->IsFrameReady()) {
         pkg->setStamp(node->now());
         lidar_pub->publish(pkg->GetLaserScan());
         pkg->ResetFrameReady();
       }
+      // Take a short nap
+      loop_rate.sleep();
     }
+    
   } else {
     std::cout << "Can't find LDS-02" << product << std::endl;
   }
