@@ -49,6 +49,11 @@ int main(int argc, char ** argv)
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
 
+  // default Set polling rate to 40Hz, this should be enough for most cases
+  double poll_rate_hz = node->declare_parameter("poll_rate_hz", 40.0);
+  rclcpp::Rate loop_rate(poll_rate_hz);
+  std::cout << "Lidar poll rate set to " << poll_rate_hz << " Hz"<< std::endl;
+
   LiPkg * pkg;
   std::string product;
   int32_t ver = 8;
@@ -84,9 +89,6 @@ int main(int argc, char ** argv)
     lidar_pub = node->create_publisher<sensor_msgs::msg::LaserScan>(
       "scan", rclcpp::QoS(rclcpp::SensorDataQoS())
     );
-
-    // Set polling rate to 40Hz, this should be enough for most cases
-    rclcpp::Rate loop_rate(40);
     
     while (rclcpp::ok() && !shutdown_requested.load()) {
       if (pkg->IsFrameReady()) {
