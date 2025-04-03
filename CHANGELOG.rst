@@ -5,7 +5,7 @@ Changelog for package ld08_driver
 1.1.2 (2025-04-02)
 ------------------
 * Removed the unused parameter from the constructor of the SlTransform class
-* Contributors: Pyo, Hyungyu Kim
+* Contributors: Hyungyu Kim
 
 1.1.1 (2025-03-27)
 ------------------
