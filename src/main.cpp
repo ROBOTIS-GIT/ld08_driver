@@ -22,12 +22,37 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 
+std::atomic_bool shutdown_requested{false};
+
+void signal_handler(int signum)
+{
+  RCLCPP_WARN(rclcpp::get_logger("signal"), "Caught signal %d", signum);
+  rclcpp::shutdown();  // Triggers on_shutdown hooks
+}
+
+void node_cleanup()
+{
+  RCLCPP_INFO(rclcpp::get_logger("shutdown"), "Shutting down gracefully...");
+  shutdown_requested.store(true);
+}
 
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
+
+  // Catch SIGINT and SIGTERM
+  signal(SIGINT, signal_handler);
+  signal(SIGTERM, signal_handler);
+
+  rclcpp::on_shutdown(node_cleanup);
+
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
+
+  // default Set polling rate to 40Hz, this should be enough for most cases
+  double poll_rate_hz = node->declare_parameter("poll_rate_hz", 40.0);
+  rclcpp::Rate loop_rate(poll_rate_hz);
+  std::cout << "Lidar poll rate set to " << poll_rate_hz << " Hz"<< std::endl;
 
   LiPkg * pkg;
   std::string product;
@@ -64,14 +89,17 @@ int main(int argc, char ** argv)
     lidar_pub = node->create_publisher<sensor_msgs::msg::LaserScan>(
       "scan", rclcpp::QoS(rclcpp::SensorDataQoS())
     );
-
-    while (rclcpp::ok()) {
+    
+    while (rclcpp::ok() && !shutdown_requested.load()) {
       if (pkg->IsFrameReady()) {
         pkg->setStamp(node->now());
         lidar_pub->publish(pkg->GetLaserScan());
         pkg->ResetFrameReady();
       }
+      // Take a short nap
+      loop_rate.sleep();
     }
+    cmd_port.Close();
   } else {
     std::cout << "Can't find LDS-02" << product << std::endl;
   }
