@@ -30,9 +30,9 @@ int main(int argc, char ** argv)
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
 
   std::string frame_id = node->get_parameter("frame_id").as_string();
-  std::string namespace = node->get_parameter("namespace").as_string();
-  if(namespace =! "") {
-    frame_id = namespace + "/" + frame_id;
+  std::string name_space = node->get_parameter("namespace").as_string();
+  if(name_space != "") {
+    frame_id = name_space + "/" + frame_id;
   }
 
   LiPkg * pkg;
@@ -74,7 +74,7 @@ int main(int argc, char ** argv)
     while (rclcpp::ok()) {
       if (pkg->IsFrameReady()) {
         pkg->setStamp(node->now());
-        pkg->setFrameID(frame_id);
+        pkg->setFrameId(frame_id);
         lidar_pub->publish(pkg->GetLaserScan());
         pkg->ResetFrameReady();
       }
