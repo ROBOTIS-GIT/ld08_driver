@@ -31,7 +31,6 @@ find_package(Boost REQUIRED system)
 ################################################################################
 include_directories(
   include
-  ${catkin_INCLUDE_DIRS}
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
@@ -39,7 +38,7 @@ set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
 file(GLOB  MAIN_SRC src/*.cpp)
 
 add_executable(ld08_driver  ${MAIN_SRC})
-target_link_libraries(ld08_driver pthread udev  ${catkin_LIBRARIES})
+target_link_libraries(ld08_driver pthread udev Boost)
 ament_target_dependencies(ld08_driver
   rclcpp
   std_msgs
