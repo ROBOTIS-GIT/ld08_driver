@@ -27,7 +27,7 @@
   \param[out]  data
   \retval      Data after coordinate conversion
 */
-SlTransform::SlTransform(LDVersion version, bool to_right_hand)
+SlTransform::SlTransform(LDVersion version)
 {
   switch (version) {
     case LDVersion::LD_ZERO:
