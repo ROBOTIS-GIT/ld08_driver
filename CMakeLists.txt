@@ -38,7 +38,7 @@ set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
 file(GLOB  MAIN_SRC src/*.cpp)
 
 add_executable(ld08_driver  ${MAIN_SRC})
-target_link_libraries(ld08_driver pthread udev Boost)
+target_link_libraries(ld08_driver pthread udev Boost::system)
 ament_target_dependencies(ld08_driver
   rclcpp
   std_msgs
