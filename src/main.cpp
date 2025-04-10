@@ -29,6 +29,8 @@ int main(int argc, char ** argv)
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
 
+  node->declare_parameter<std::string>("frame_id", "base_scan");
+  node->declare_parameter<std::string>("namespace", "");
   std::string frame_id = node->get_parameter("frame_id").as_string();
   std::string name_space = node->get_parameter("namespace").as_string();
   if(name_space != "") {
