@@ -28,6 +28,7 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
+  rclcpp::Rate loop_rate(100.0);
 
   node->declare_parameter<std::string>("frame_id", "base_scan");
   node->declare_parameter<std::string>("namespace", "");
@@ -80,6 +81,7 @@ int main(int argc, char ** argv)
         lidar_pub->publish(pkg->GetLaserScan());
         pkg->ResetFrameReady();
       }
+      loop_rate.sleep();
     }
   } else {
     std::cout << "Can't find LDS-02" << product << std::endl;
