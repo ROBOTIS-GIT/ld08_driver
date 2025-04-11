@@ -16,11 +16,13 @@
 
 #include <stdio.h>
 #include <iostream>
+
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
+
 #include "../include/cmd_interface_linux.hpp"
 #include "../include/lipkg.hpp"
 #include "../include/transform.hpp"
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/laser_scan.hpp>
 
 
 int main(int argc, char ** argv)
@@ -28,6 +30,15 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node = rclcpp::Node::make_shared("laser_scan_publisher");
   rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr lidar_pub;
+  rclcpp::Rate loop_rate(100.0);
+
+  node->declare_parameter<std::string>("frame_id", "base_scan");
+  node->declare_parameter<std::string>("namespace", "");
+  std::string frame_id = node->get_parameter("frame_id").as_string();
+  std::string name_space = node->get_parameter("namespace").as_string();
+  if (name_space != "") {
+    frame_id = name_space + "/" + frame_id;
+  }
 
   LiPkg * pkg;
   std::string product;
@@ -68,9 +79,11 @@ int main(int argc, char ** argv)
     while (rclcpp::ok()) {
       if (pkg->IsFrameReady()) {
         pkg->setStamp(node->now());
+        pkg->setFrameId(frame_id);
         lidar_pub->publish(pkg->GetLaserScan());
         pkg->ResetFrameReady();
       }
+      loop_rate.sleep();
     }
   } else {
     std::cout << "Can't find LDS-02" << product << std::endl;

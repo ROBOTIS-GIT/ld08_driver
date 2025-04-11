@@ -18,6 +18,7 @@
 #include <math.h>
 #include <algorithm>
 
+
 #define USE_SLBF
 
 #ifdef USE_SLBI
@@ -229,8 +230,6 @@ void LiPkg::ToLaserscan(std::vector<PointData> src)
 
   // Calculate the number of scanning points
   unsigned int beam_size = ceil((angle_max - angle_min) / angle_increment);
-  // output.header.stamp = rclcpp::Time::now();
-  output.header.frame_id = "base_scan";
   output.angle_min = angle_min;
   output.angle_max = angle_max;
   output.range_min = range_min;
