@@ -16,11 +16,13 @@
 
 #include <stdio.h>
 #include <iostream>
+
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/laser_scan.hpp>
+
 #include "../include/cmd_interface_linux.hpp"
 #include "../include/lipkg.hpp"
 #include "../include/transform.hpp"
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/laser_scan.hpp>
 
 
 int main(int argc, char ** argv)
@@ -34,7 +36,7 @@ int main(int argc, char ** argv)
   node->declare_parameter<std::string>("namespace", "");
   std::string frame_id = node->get_parameter("frame_id").as_string();
   std::string name_space = node->get_parameter("namespace").as_string();
-  if(name_space != "") {
+  if (name_space != "") {
     frame_id = name_space + "/" + frame_id;
   }
 

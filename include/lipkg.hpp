@@ -16,12 +16,16 @@
 
 #ifndef LIPKG_HPP_
 #define LIPKG_HPP_
+
 #include <stdint.h>
-#include <vector>
 #include <array>
+#include <string>
+#include <vector>
 #include <iostream>
+
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <rclcpp/rclcpp.hpp>
+
 #include "../include/pointdata.hpp"
 
 #define ANGLE_TO_RADIAN(angle) ((angle) * 3141.59 / 180000)
