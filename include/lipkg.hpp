@@ -16,12 +16,16 @@
 
 #ifndef LIPKG_HPP_
 #define LIPKG_HPP_
+
 #include <stdint.h>
-#include <vector>
 #include <array>
+#include <string>
+#include <vector>
 #include <iostream>
+
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <rclcpp/rclcpp.hpp>
+
 #include "../include/pointdata.hpp"
 
 #define ANGLE_TO_RADIAN(angle) ((angle) * 3141.59 / 180000)
@@ -92,6 +96,7 @@ public:
   const FrameData & GetFrameData(void) {mIsFrameReady = false; return mFrameData;}
   sensor_msgs::msg::LaserScan GetLaserScan() {return output;}
   void setStamp(rclcpp::Time timeStamp) {output.header.stamp = timeStamp;}
+  void setFrameId(std::string frame_id) {output.header.frame_id = frame_id;}
 
 private:
   uint16_t mTimestamp;
