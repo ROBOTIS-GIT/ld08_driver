@@ -39,7 +39,7 @@ file(GLOB  MAIN_SRC src/*.cpp)
 
 add_executable(ld08_driver  ${MAIN_SRC})
 target_link_libraries(ld08_driver pthread udev Boost::system)
-ament_target_dependencies(ld08_driver
+target_link_libraries(ld08_driver PUBLIC
   rclcpp
   std_msgs
   sensor_msgs
