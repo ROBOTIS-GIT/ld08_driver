@@ -38,12 +38,15 @@ set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS}")
 file(GLOB  MAIN_SRC src/*.cpp)
 
 add_executable(ld08_driver  ${MAIN_SRC})
-target_link_libraries(ld08_driver pthread udev Boost::system)
-ament_target_dependencies(ld08_driver
-  rclcpp
-  std_msgs
-  sensor_msgs
+target_link_libraries(ld08_driver
+  ${sensor_msgs_TARGETS}
+  ${std_msgs_TARGETS}
+  Boost::system
+  pthread
+  rclcpp::rclcpp
+  udev
 )
+
 
 ################################################################################
 # Install
@@ -60,8 +63,13 @@ install(
 ################################################################################
 # Macro for ament package
 ################################################################################
-ament_export_dependencies(rclcpp)
-ament_export_dependencies(std_msgs)
-ament_export_dependencies(sensor_msgs)
+ament_export_dependencies(
+  rclcpp
+  std_msgs
+  sensor_msgs
+  Boost::system
+  pthread
+  udev
+)
 ament_export_include_directories(include)
 ament_package()

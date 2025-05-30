@@ -2,6 +2,11 @@
 Changelog for package ld08_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.4 (2025-05-28)
+------------------
+* Deprecate ament_include_dependency usage in CMakeLists.txt
+* Contributor: Hyungyu Kim
+
 1.1.3 (2025-04-11)
 ------------------
 * Support flexible configuration of the frame_id used when publishing the scan topic
