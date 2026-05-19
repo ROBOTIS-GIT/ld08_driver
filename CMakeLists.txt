@@ -24,7 +24,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(Boost REQUIRED system)
+find_package(Boost REQUIRED)
 
 ################################################################################
 # Build
@@ -41,7 +41,7 @@ add_executable(ld08_driver  ${MAIN_SRC})
 target_link_libraries(ld08_driver
   ${sensor_msgs_TARGETS}
   ${std_msgs_TARGETS}
-  Boost::system
+  Boost::boost
   pthread
   rclcpp::rclcpp
   udev
@@ -67,7 +67,7 @@ ament_export_dependencies(
   rclcpp
   std_msgs
   sensor_msgs
-  Boost::system
+  Boost::boost
   pthread
   udev
 )
