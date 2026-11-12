@@ -2,6 +2,14 @@
 Changelog for package ld08_driver
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.5 (2026-11-12)
+------------------
+* Remove the unused Boost dependency from CMake and package.xml
+* Add rosdep dependency installation and checks to CI
+* Expand ROS 2 CI coverage to Kilted and Lyrical and update Rolling to Ubuntu Resolute
+* Add an automated release workflow for pull requests from main to jazzy
+* Contributors: Hyungyu Kim, Taehun Lim
+
 1.1.4 (2025-05-28)
 ------------------
 * Deprecate ament_include_dependency usage in CMakeLists.txt
